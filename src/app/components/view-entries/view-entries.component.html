@@ -1,0 +1,67 @@
+<div class="container">
+    <div class="form-field">
+      <h2 class="view-header">View Entries</h2>
+      <mat-form-field class="date-field" appearance="outline">
+        <mat-label>Date</mat-label>
+        <input
+          matInput
+          [matDatepicker]="picker"
+          [(ngModel)]="date"
+          placeholder="Select Date"
+        />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <button 
+        mat-raised-button 
+        color="primary" 
+        (click)="fetchEntries()" 
+        class="action-button"
+      >
+        View
+      </button>
+      <!-- <button 
+        mat-raised-button 
+        color="accent" 
+        (click)="fetchAllEntries()" 
+        class="action-button"
+      >
+        View All
+      </button> -->
+    </div>
+  
+    <div class="entry-container">
+      <table mat-table [dataSource]="entries" class="mat-elevation-z8 entry-table">
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let element"> {{ element.name }} </td>
+        </ng-container>
+  
+        <!-- Food Column -->
+        <ng-container matColumnDef="food">
+          <th mat-header-cell *matHeaderCellDef> Food </th>
+          <td mat-cell *matCellDef="let element"> {{ element.food }} </td>
+        </ng-container>
+  
+        <!-- Calories Column -->
+        <ng-container matColumnDef="calories">
+          <th mat-header-cell *matHeaderCellDef> Calories </th>
+          <td mat-cell *matCellDef="let element"> {{ element.calories }} </td>
+        </ng-container>
+  
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+  
+      <mat-paginator
+        [length]="totalEntries"
+        [pageSize]="pageSize"
+        [pageSizeOptions]="[5, 10, 20]"
+        (page)="onPageChange($event)"
+        class="paginator"
+      >
+      </mat-paginator>
+    </div>
+  </div>
+  

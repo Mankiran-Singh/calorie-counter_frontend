@@ -1,0 +1,46 @@
+<h2 class="form-header">Log Food Entry</h2>
+<form [formGroup]="logEntryForm" (ngSubmit)="logEntry()" class="entry-form">
+  <!-- Name Field -->
+  <mat-form-field class="form-field" appearance="outline">
+    <mat-label>Name</mat-label>
+    <input matInput placeholder="Name" formControlName="name" />
+    <mat-error *ngIf="name?.hasError('required')">Name is required</mat-error>
+    <mat-error *ngIf="name?.hasError('maxLength')">Name must be under 50 characters</mat-error>
+  </mat-form-field>
+
+  <!-- Date Field -->
+  <mat-form-field class="form-field" appearance="outline">
+    <mat-label>Date</mat-label>
+    <input matInput [matDatepicker]="picker" formControlName="date" />
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+    <mat-error *ngIf="date?.hasError('required')">Date is required</mat-error>
+  </mat-form-field>
+
+  <!-- Food Field -->
+  <mat-form-field class="form-field" appearance="outline">
+    <mat-label>Food</mat-label>
+    <input matInput placeholder="Food" formControlName="food" />
+    <mat-error *ngIf="food?.hasError('required')">Food is required</mat-error>
+    <mat-error *ngIf="food?.hasError('maxLength')">Food must be under 50 characters</mat-error>
+  </mat-form-field>
+
+  <!-- Calories Field -->
+  <mat-form-field class="form-field" appearance="outline">
+    <mat-label>Calories</mat-label>
+    <input matInput type="number" placeholder="Calories" formControlName="calories" />
+    <mat-error *ngIf="calories?.hasError('required')">Calories are required</mat-error>
+    <mat-error *ngIf="calories?.hasError('min')">Calories must be greater than 0</mat-error>
+    <mat-error *ngIf="calories?.hasError('max')">Calories must be less than 5000</mat-error>
+  </mat-form-field>
+
+  <button
+    mat-raised-button
+    color="primary"
+    type="submit"
+    class="submit-button"
+    [disabled]="logEntryForm.invalid"
+  >
+    Add Entry
+  </button>
+</form>
